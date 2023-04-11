@@ -1,15 +1,20 @@
 package ru.sudakov.springfirst;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class TestSpring {
     public static void main(String[] args) {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                "applicationContext.xml"
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
+                SpringConfig.class
         );
 
-        TestBean testBean = context.getBean("testBean", TestBean.class);
-        System.out.println(testBean.getName());
+        MusicPlayer music1 = context.getBean("musicPlayer", MusicPlayer.class);
+        music1.playMusic();
+
+        MusicPlayer music2 = context.getBean("musicPlayer", MusicPlayer.class);
+
+        System.out.println(music1 == music2);
         context.close();
     }
 }
